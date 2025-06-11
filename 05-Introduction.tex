@@ -1,0 +1,80 @@
+\chapter*{General Introduction}
+
+\section*{Context}
+
+In the realm of healthcare and pharmacology, the availability of precise and accessible information is critical to ensuring patient safety and facilitating proper medication usage. In Algeria, one of the key elements supporting this information dissemination is the medical label, a small yet essential component that accompanies every pharmaceutical product. Medical labels—also known as vignettes—typically contain important textual data such as the lot number, expiration and manufacturing dates, dosage, regulatory classifications (e.g., refundable or non-refundable), and pricing. Despite their importance, medical labels often lack a standardized format in many countries, including Algeria. This variability poses challenges not only for human interpretation but also for automated processing systems.
+
+With the rapid growth of Artificial Intelligence (AI) and Computer Vision, especially in the subfield of Optical Character Recognition (OCR), there is a growing interest in developing intelligent systems capable of reading and interpreting visual text information. These technologies have shown great success in domains such as automated document processing, license plate recognition, and receipt scanning. However, the specific case of medical labels in Algeria remains underexplored. The lack of standardized layouts, the presence of multiple languages (Arabic, French), and the variations in fonts and packaging designs significantly hinder the performance of generic OCR systems.
+
+In this context, this thesis explores the application and adaptation of modern OCR techniques to tackle the problem of automated medical label recognition in Algeria, with a focus on accurate text extraction and classification of medications based on refundability.
+
+\section*{Problematic}
+
+The fundamental challenge addressed in this thesis stems from the absence of an automated system for recognizing and interpreting Algerian medical labels. %Existing OCR solutions like Tesseract, EasyOCR, or TrOCR perform well on general-purpose datasets, but they fall short when faced with the diversity and specificity of local pharmaceutical packaging.
+
+Several factors contribute to this issue: Firstly, medical labels in Algeria do not follow a uniform format, resulting in inconsistencies in text layout and content placement. Secondly, labels often contain text in both Arabic and French, using fonts and abbreviations that are specific to the pharmaceutical field. Thirdly, images of medical labels are often captured under suboptimal conditions—poor lighting, varied angles, or low resolution—which further complicates the text extraction process. Finally, there is a complete lack of publicly available annotated datasets for Algerian medical labels, making it difficult to train and evaluate models tailored to this context.
+
+%To investigate theses issues, we 
+These limitations necessitate the development of a custom OCR-based solution capable of handling the unique characteristics of local labels and producing reliable recognition results.
+
+\section*{Objectives}
+
+The main objective of this thesis is to design, implement, and optimize a system capable of automatically extracting and interpreting the textual content of Algerian medical labels while ensuring the creation of a reliable dataset. To achieve this, we will try to answer the following research questions:
+%a set of specific goals has been defined.
+\begin{itemize}
+
+    \item \textbf{Approaches Investigation}
+    
+\textit{Which OCR approaches can be effectively investigated and adapted to address the specific challenges of text recognition in medical labels?}
+
+    \item \textbf{Dataset Construction}
+    
+\textit{How can a representative and accurately annotated dataset of medical labels from Algerian pharmacies be constructed to support domain-specific OCR tasks?}
+    
+    \item \textbf{Model Fine-Tuning and Evaluation}
+    
+\textit{To what extent can fine-tuning improve the performance of state-of-the-art OCR engines (Tesseract, EasyOCR, and TrOCR) on a specialized medical label dataset?}
+
+    \item \textbf{Optimization Techniques}
+    
+\textit{How effective are hyperparameter optimization methods, such as Optuna and Genetic Algorithms, in enhancing the recognition accuracy of OCR models on medical label data?}
+\end{itemize}
+%The first goal is to build a representative dataset of medical labels collected from local pharmacies, and to annotate this dataset with high-quality ground truth. The second goal is to fine-tune and evaluate three OCR engines—Tesseract, EasyOCR, and TrOCR—on this dataset to assess their performance and adaptability to the domain. The third goal is to apply hyperparameter optimization techniques using both Optuna and Genetic Algorithms to further enhance model accuracy and reduce recognition errors. Finally, the extracted text will be analyzed to classify medications based on their refundability status.
+
+This comprehensive approach is aimed at creating a reliable OCR pipeline that meets the specific requirements of the Algerian pharmaceutical context.
+
+\section*{Methodology}
+
+To meet the stated objectives, this work follows a structured methodology. The process begins with the construction of a dataset composed of over 2000 medical label images gathered from different pharmacies in Khemis Miliana (Ain Defla, Algeria). These images are manually segmented into individual lines of text and annotated to create ground truth labels suitable for model training.
+
+Following the data preparation, three OCR engines are implemented: Tesseract (based on LSTM), EasyOCR (based on CRNN with CRAFT), and TrOCR (a transformer-based model). Each engine is first evaluated in its default, pretrained form, then fine-tuned using the custom dataset to better adapt to the target domain.
+
+To further improve the models’ performance, hyperparameter optimization is carried out. Two optimization strategies are explored: Optuna, which uses a tree-structured Parzen estimator (TPE), and Genetic Algorithms, which mimic the process of natural selection. These strategies help identify the optimal configurations that improve the performance of each OCR model.
+
+Finally, the performance of the standard, fine-tuned, and optimized models is evaluated using metrics such as Character Error Rate (CER), training loss, and validation loss. This allows for a comparative analysis that identifies the best-performing models and justifies the effectiveness of the proposed approach.
+
+\section*{Structure of the Thesis}
+
+This dissertation is organized into 4 chapters:
+\begin{comment}
+    
+\begin{itemize}
+    \item The first chapter will talk about the Medical Label Information Processing.
+    \item The second chapter will consist of the Existing Text Recognition Methods.
+    \item The third chapter represents our First Contribution and proposed approach for medication labels recognition and extraction problem.
+    \item The fourth chapter presents our Second Contribution which is the Hyperparameter Optimization of the OCR models using Optuna and Genetic Algorithms.
+\end{itemize}
+\end{comment}
+\begin{itemize}
+    \item 
+    The First chapter introduces the domain of Image Processing in medical label data and, focusing on the types of information typically found on medication packaging. It discusses the challenges involved in processing such information, including layout variability, multilingual content, and noise in scanned or photographed labels.
+
+    \item
+    The Second chapter provides a comprehensive review of the current state-of-the-art techniques in text detection and recognition. It covers both traditional OCR approaches and modern deep learning-based methods, highlighting their strengths, limitations, and relevance to the context of medical label processing.
+
+    \item 
+    This chapter presents the first core contribution of the thesis: 3 Fine-Tuned OCR Models designed to accurately detect, recognize, and extract information from medication labels. The chapter explains the methodology, model architecture, dataset used, and evaluation metrics used in the development of the system.
+    
+    \item
+    The final chapter introduces an advanced optimization framework to enhance the performance of OCR models. It describes how Optuna and Genetic Algorithms were employed to fine-tune Our Proposed Models' hyperparameters to improve their recognition accuracy and reliability.
+\end{itemize}

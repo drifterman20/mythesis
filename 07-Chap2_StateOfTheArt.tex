@@ -1,0 +1,139 @@
+\chapter{State of the Art}
+\clearpage
+
+\section{Introduction}
+OCR is a fundamental technology in the field of computer vision and document analysis. It enables machines to interpret and convert various forms of text—printed, handwritten, or typed—into machine-readable formats. OCR has seen widespread adoption across numerous industries due to its ability to automate data extraction, enhance information accessibility, and reduce manual transcription errors \cite{Smith2007, Subramani2020}.%validated
+
+In the medical domain, OCR plays a critical role in digitizing textual data from prescriptions, labels, and records, streamlining workflows, and minimizing human error \cite{Goodrum2020, Datta2025}. This chapter explores the development of OCR technologies, their applications with a focus on healthcare, and presents a review of current OCR systems, particularly Tesseract, EasyOCR, and TrOCR. It also highlights challenges specific to OCR on medical labels and underscores the necessity of domain-specific dataset creation and model fine-tuning.%validated
+
+\section{Evolution of OCR Technologies}
+
+The evolution of Optical Character Recognition (OCR) has followed a rich and transformative trajectory, beginning in the mid-20th century with simple rule-based systems and advancing toward the deep learning and transformer models of today. The earliest generation of OCR, emerging between the 1950s and 1980s, was dominated by rule-based and template-matching techniques \cite{casey1996survey}. These systems operated by comparing scanned glyphs against stored templates and relied heavily on handcrafted heuristics, such as stroke geometry and zoning. While they enabled early applications like reading postal mail and digitizing census forms, their rigid structure made them extremely vulnerable to noise, misalignment, and even minor font changes, severely limiting their generalization.
+
+The second generation, spanning the 1980s to 1990s, marked a shift toward statistical and feature-based OCR. Instead of raw template matching, systems now extracted engineered features like pixel projections, histograms, or transform coefficients \cite{casey1996survey}. These were paired with statistical classifiers such as Bayesian models, nearest-neighbor algorithms, or Hidden Markov Models (HMMs) for handling cursive text. Though more flexible than their predecessors, these systems required meticulous feature design and often struggled with unseen fonts or heavily overlapping characters. Nonetheless, this era saw the emergence of experimental handwriting recognition systems used in domains like bank check processing and multilingual document recognition.
+
+A more substantial leap occurred in the late 1990s through the 2010s with the rise of machine learning-based OCR. This third generation introduced trainable models such as multi-layer perceptrons (MLPs), convolutional neural networks (CNNs), recurrent networks (RNNs), and later, Long Short-Term Memory networks (LSTMs) \cite{lecun1998gradient, graves2009offline}. Architectures like CRNN (a fusion of CNN and RNN with CTC loss) allowed for end-to-end recognition without the need for prior character segmentation \cite{shi2017crnn}. These systems learned directly from labeled image data, significantly improving accuracy in both printed and handwritten text recognition. OCR research during this period flourished, giving rise to benchmark models and large-scale projects, but the performance still hinged on large annotated datasets and computational resources.
+
+The most recent phase, beginning around 2015, represents the fourth generation of OCR, powered by deep learning and transformer architectures. This era is defined by the use of extremely deep CNNs for visual encoding, attention-based RNN decoders, and more recently, transformer models that process entire text sequences in a parallel and contextual manner \cite{li2021trocr}. TrOCR, for example, reimagines OCR as a sequence-to-sequence translation task, integrating both vision and language pretraining to produce text directly from images. These modern systems exhibit extraordinary accuracy, are capable of handling multiple scripts and languages, and require minimal manual feature engineering. However, they come with new challenges—chiefly, their dependence on massive amounts of data, high training costs, and black-box interpretability.
+
+From its inception as a rule-driven process dependent on perfect alignment and font uniformity to its current form leveraging large-scale neural networks and self-attention, OCR has evolved into a powerful, flexible, and still growing technology. This evolution continues to reshape how machines read and interpret the visual world, with applications spanning everything from historical text restoration to intelligent scene understanding.
+
+
+%\textcolor{red}{here add the comparison table for types of OCR that you have used before in the presentation}
+
+\begin{table}[tb!]
+\centering
+\caption{Evolution of OCR Generations}
+\resizebox{1.07\textwidth}{!}{
+\begin{tabular}{|p{3.2cm}|p{4.5cm}|p{4.8cm}|p{4.8cm}|p{4.8cm}|}
+\hline
+\textbf{Generation (Period)} & \textbf{Techniques} & \textbf{Key Characteristics} & \textbf{Example Usage} & \textbf{Limitations} \\
+\hline
+
+\textbf{Gen 1: Rule-Based \& Template Systems (1950s–1980s)} & 
+- Template matching of scanned glyphs (pixel-wise or correlation) \cite{casey1996survey} \newline 
+- Handcrafted heuristics (stroke geometry, zoning) & 
+- Fixed fonts (e.g. OCR-A/OCR-B), binary images; heavy preprocessing (binarization, segmentation) \cite{casey1996survey} \newline 
+- Decision logic with no learning; one-to-one template lookup & 
+- Early research and products for typed text (census forms, postal mail sorting) \newline 
+- Academic demos (reading typewritten books, aiding the blind) & 
+- Extremely sensitive to noise, skew and font/size changes \cite{casey1996survey} \newline 
+- Required perfect alignment and segmentation; poor generalization \\
+
+\hline
+
+\textbf{Gen 2: Statistical \& Feature-based OCR (1980s–1990s)} & 
+- Engineered features (zoning, projections, histograms, transform coefficients) \cite{casey1996survey} \newline 
+- Statistical classifiers (Bayesian, nearest-neighbor) \newline 
+- Hidden Markov Models (HMM) for character sequences (especially cursive) \cite{casey1996survey} & 
+- Uses feature vectors instead of raw pixels; often language models or lexicons added \newline 
+- Segmentation-based: characters or words pre-extracted; parameters trained from data \newline 
+- Some simple neural nets or perceptrons introduced (pre-deep learning) & 
+- Research OCR on multi-font printed text and cursive handwriting; multilingual OCR experiments \newline 
+- Early handwriting recognition prototypes (bank checks, academic datasets) & 
+- Feature design was labor-intensive; brittle to novel fonts or styles \cite{casey1996survey} \newline 
+- HMMs and classifiers needed clean segmentation; poor with large vocabularies or heavy overlap \\
+
+\hline
+
+\textbf{Gen 3: Machine Learning–based OCR (late 1990s–2010s)} & 
+- Trainable models: neural networks (MLP, CNN, RNN/LSTM), SVMs, decision forests \cite{lecun1998gradient, graves2009offline} \newline 
+- End-to-end architectures (e.g. CRNN: CNN+RNN with CTC) \cite{shi2017crnn} \newline 
+- Statistical language models (n-grams, lexicon) in post-processing & 
+- Data-driven learning from labeled text images; features largely learned automatically \newline 
+- Segmentation-free approaches emerge (CTC loss integrates recognition sequence) \cite{shi2017crnn} \newline 
+- Deeper networks (multiple layers) and recurrent nets capture context \cite{graves2009offline} & 
+- High-accuracy digit and handwritten-letter recognition (e.g. LeCun’s CNN with 1\% error on ZIP codes \cite{lecun1998gradient}) \newline 
+- Scene-text and document OCR research (e.g. Shi \textit{et al.} CRNN architecture) \newline 
+- Academic challenges (ICDAR competitions, large-scale digitization projects) & 
+- Required large, labeled datasets and careful tuning \newline 
+- Still struggled with highly cursive or noisy text \newline 
+- Models could overfit specific fonts/scripts; compute-intensive training \\
+
+\hline
+
+\textbf{Gen 4: Deep Learning \& Transformer OCR (2015–present)} & 
+- Deep CNN backbones for feature extraction; attention-based RNN decoders; Transformers (encoder–decoder) \cite{li2021trocr} \newline 
+- Pre-trained vision-language models fine-tuned for OCR (e.g. TrOCR) \newline 
+- End-to-end pipelines (text detection + recognition with deep nets) & 
+- Very large neural models (often hundreds of millions of parameters); end-to-end learning from raw images \newline 
+- Capable of arbitrary vocabularies and fonts; minimal feature engineering \newline 
+- Uses multi-language pre-training and self-attention to capture complex layouts & 
+- Modern text recognition (scene text, documents, handwriting) with high accuracy (e.g. Microsoft’s TrOCR) \newline 
+- Research on low-resource and historical documents; integration with NLP (e.g. reading formulas, code) & 
+- Extremely data- and compute-hungry; long training times \newline 
+- Black-box models: hard to interpret or correct failures \newline 
+- Still prone to errors under extreme distortions or very low resource languages \\
+
+\hline
+\end{tabular}}
+
+\label{tab:ocr_generations}
+\end{table}
+
+
+
+\section{Applications of OCR}
+%\textcolor{red}{redo and combine}
+Optical Character Recognition (OCR) has become a foundational technology in numerous domains, offering automation and accuracy in extracting text from images and scanned documents. In the realm of document digitization, OCR has been widely adopted by libraries and archival institutions to convert physical books, manuscripts, and historical records into searchable digital formats, significantly enhancing accessibility and preservation efforts \cite{Gupta2016}. Another prominent application is in transportation, particularly in license plate recognition systems used for automated toll collection, traffic monitoring, and law enforcement; these systems rely on OCR to rapidly identify vehicle plates in varying conditions \cite{Shi2016}. OCR is also integral to identity verification processes, where it is employed to extract textual data from identification documents such as passports and driver’s licenses, streamlining procedures in both governmental and commercial sectors. Furthermore, advancements in scene text recognition have enabled mobile applications and assistive tools to interpret textual content from natural environments—such as street signs, product labels, and restaurant menus—making them particularly useful for navigation and accessibility purposes \cite{baek2019character}.
+
+In the medical field, OCR is gaining significant traction due to its potential to streamline clinical workflows and enhance data accuracy. One key application is the digitization of prescriptions, where OCR systems are used to extract information from handwritten or printed documents, thereby reducing human error and improving pharmacy operations \cite{Liu2020}. OCR also plays a vital role in the management of electronic health records (EHR), converting unstructured text from medical reports into structured, searchable data that can be integrated into hospital information systems \cite{Goodrum2020}. In pharmaceutical contexts, OCR is used to scan and verify drug labels, ensuring correct medication dispensation and regulatory compliance \cite{Datta2025}. Additionally, pill identification systems that incorporate OCR contribute to inventory control and help prevent medication errors by accurately recognizing imprints and packaging details. Collectively, these applications highlight OCR’s transformative impact across sectors, improving efficiency, reducing manual labor, and enabling smarter data management.
+
+
+\section{Popular Open-Source OCR Engines}
+%\textcolor{red}{here say something to introduce the section, like what an OCR engine is and what it is used for?}
+Optical Character Recognition (OCR) engines are software tools that convert images containing text—such as scanned documents, photographs, or handwritten notes—into machine-readable text \cite{Casey1996}. These engines are widely used in applications like digitizing printed documents, automating data entry, reading labels, and enabling assistive technologies for the visually impaired.
+
+In recent years, several open-source OCR engines have emerged, offering powerful capabilities and support for a wide range of languages and use cases. This section highlights three of the most widely adopted open-source OCR engines: Tesseract, EasyOCR, and TrOCR. Each represents a different stage in the evolution of OCR technologies, from traditional rule-based systems to modern deep learning and transformer-based approaches.
+
+\subsection*{Tesseract} Tesseract\footnote{https://github.com/tesseract-ocr/tesseract} is a well-established open-source OCR engine initially developed by Hewlett-Packard between 1985 and 1995, later open-sourced and maintained by Google. From version 4 onwards, Tesseract integrated Long Short-Term Memory (LSTM) networks, significantly improving performance on more complex text recognition tasks. It supports multiple OCR modes, including text recognition, layout analysis, and character segmentation. Tesseract is also highly customizable, allowing for domain-specific fine-tuning, which makes it a suitable choice for structured documents such as medical labels. However, without proper pre-processing and training, its performance may decline when faced with noisy images, non-standard fonts, or poor-quality inputs \cite{Smith2007}.
+
+\subsection*{EasyOCR} Developed by Jaided AI\cite{JaidedAI2020}, EasyOCR \footnote{https://github.com/JaidedAI/EasyOCR} is a Python-based deep learning OCR library that supports over 80 languages. It combines a CRAFT-based detector and a CRNN-based recognizer, making it effective for both scene text and document text recognition. EasyOCR's architecture is relatively easy to retrain on custom data, making it well-suited for specialized domains like healthcare. It offers good baseline accuracy and flexibility, though it can be sensitive to visual clutter or very small text elements, particularly in complex backgrounds \cite{JaidedAI2020, Shi2016, Baek2019}.
+
+\subsection*{TrOCR} Developed by Microsoft, TrOCR represents the latest generation of OCR tools using a transformer-based architecture. It treats OCR as a sequence-to-sequence translation task, employing a vision encoder (based on Vision Transformers, ViT) and a language decoder (such as BART) to directly generate text from image inputs. This model has achieved state-of-the-art performance on benchmark datasets and excels in scenarios requiring high contextual understanding and multi-language support. Despite its accuracy and flexibility, TrOCR requires significant computational resources for training and inference, which can limit its adoption in resource-constrained environments \cite{Li2021}.
+
+\section{OCR for medical labels: overview }
+In Algeria, so far as we know, an automatic system for processing information was developed with the goal of detecting, extracting, and classifying the content of Medical Labels \cite{meghatria2024}. The system incorporated two main approaches: one using the open-source Tesseract OCR engine and another leveraging the commercial Google Cloud VisionAI service. While the project achieved notable progress in automating text extraction from medical labels, several limitations were observed.
+
+The major limit is related to the limited size of the dataset which was very small. Due to this, the Tesseract-based approach struggled with low accuracy, particularly when dealing with poor image quality, non-standardized label formats, and segmentation errors. These factors often led to incomplete or inaccurate recognition results. On the other hand, the VisionAI-based approach demonstrated significantly higher precision and robustness in text detection and recognition. However, its reliance on a paid API presents a major drawback, as it limits accessibility and scalability for widespread use, especially in public or low-budget applications. These limitations underscore the importance of further research into open, high-performance OCR solutions and standardized label formatting to enhance the effectiveness and affordability of such systems.% validated
+
+
+\section{Challenges in OCR for processing medical labels}
+Medical labels present unique challenges to OCR systems:
+\begin{itemize}
+\item \textbf{Image Quality:} Poor lighting, low resolution, and noise can degrade recognition performance.
+\item \textbf{Small Fonts:} Labels often contain dense text with small font sizes.
+\item \textbf{Complex Layouts:} Information is sometimes structured in tables or in a multi-column format \cite{Gupta2016}.
+\item \textbf{Language Terminology:} OCR engines must recognize specialized vocabulary and abbreviations.
+\item \textbf{Multilingual Content:} Labels may include content in multiple languages.
+\end{itemize}
+
+%These factors necessitate the development of custom datasets and the fine-tuning of OCR models.
+
+%\section{Custom Datasets and Annotation in OCR}
+%For OCR systems to perform well on medical labels, domain-specific training data is essential. This often involves manual annotation of text regions and transcription. Tools like LabelImg or custom scripts can be used to generate bounding boxes and label text pairs \cite{Tzutalin2015, CVAT2023}.
+
+%In this project, a custom dataset of medical label images was manually annotated. The dataset captures a variety of label styles, fonts, and conditions to ensure robustness. Fine-tuning Tesseract, EasyOCR, and TrOCR on this dataset enabled adaptation to domain-specific challenges, improving recognition accuracy.
+
+\section{Conclusion}
+OCR technology has evolved significantly, from rule-based systems to advanced deep learning and transformer-based models. While general-purpose OCR engines perform well in many cases, specialized domains like medical label recognition require custom training and fine-tuning. By leveraging tailored datasets and modern OCR architectures, it is possible to overcome the challenges posed by medical label images and achieve high recognition performance. This sets the stage for the next chapter, which details the methodology used to train and evaluate the selected OCR engines on the custom dataset.

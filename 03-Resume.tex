@@ -1,0 +1,33 @@
+\mychapter{0}{\textit{Resume}}
+
+%Notre objectif principal pour ce projet était de créer un système basé sur l'intelligence artificielle capable d'identifier les vignettes des médicament et d'extraire leur contenu. , Nous avons commencé par utiliser 2 méthodes avec des approches différentes (approche basée sur Tesseract et approche basée sur VisionAI) pour avoir une comparaison à la fin du projet entre ces deux approches. La principale distinction entre les 2 approches est que l'approche basée sur VisionAI utilise une détection intelligente de la vignette de médicament tandis que l'approche basée sur Tesseract utilise une sélection manuelle des coins de la vignette de médicament. Dans la méthode initiale (approche basée sur Tesseract), une détection et une segmentation traditionnelles utilisant des techniques de traitement d'image classiques telles que l'analyse d'histogramme horizontal et vertical sont utilisées pour la détection et la segmentation des lignes et des parties de la vignette de médicament, parallèlement à l'utilisation de PyTesseract, un Outil OCR, pour identifier et extraire le texte des vignettes des médicament. En ce qui concerne la deuxième méthode, nous avons pu créer un modèle de détection d'étiquettes médicales formé sur mesure qui affichait des résultats précis et fiables, tout en utilisant l'un des meilleurs moteurs OCR alimentés par l'IA appelé VisionAI. L'approche basée sur VisionAI a démontré une excellente performance de détection des vignettes des médicament et d'extraction de leur contenu avec une précision d'environ 95,79\%.
+\begin{comment}
+    
+Dans le domaine de la pharmacologie, les étiquettes des médicaments ou oussi appellées vignettes jouent un rôle essentiel en fournissant des informations importantes sur les médicaments qui sont vendus ou distribués, notamment des détails tels que les numéros de lot, les dates de fabrication et d'expiration, ainsi que d'autres informations pertinentes sur les médicaments. Cependant, l'absence d'un modèle normalisé pour les étiquettes médicales approuvé par le Ministère de la Santé a conduit à l'absence de systèmes de reconnaissance automatique des étiquettes médicales en Algérie. Dans ce travaille nous proposons un système basé sur l'intelligence artificielle capable d'identifier automatiquement les étiquettes médicales, d'extraire leur contenu et de les classifier comme médicaments remboursables ou non remboursables.
+
+Cette étude présente deux approches : l'approche basée sur Tesseract et l'approche basée sur VisionAI. L'approche basée sur Tesseract utilise des techniques traditionnelles de détection et de segmentation à l'aide de méthodes classiques de traitement d'images, telles que l'analyse des histogrammes horizontaux et verticaux, pour identifier et segmenter les lignes et les sections des étiquettes médicales. De plus, PyTesseract, un outil de reconnaissance optique de caractères (OCR), est utilisé pour extraire le texte des étiquettes médicales. D'autre part, l'approche basée sur VisionAI intègre un modèle de détection et segmentation personnalisé pour les étiquettes médicales, qui présente des résultats précis et fiables. De plus, cette approche utilise VisionAI, un moteur OCR très précis, pour l'extraction du texte des étiquettes médicales.
+
+Les évaluations expérimentales démontrent les performances supérieures de l'approche basée sur VisionAI, atteignant une précision remarquable d'environ 95,79\% dans la détection des étiquettes médicales et l'extraction de leur contenu. Cette recherche présente une solution prometteuse au manque de systèmes de reconnaissance automatique des étiquettes médicales en Algérie, fournissant ainsi une base pour la mise en œuvre d'outils efficaces et fiables de gestion et de classification des médicaments. Des recherches supplémentaires sont nécessaires pour améliorer les capacités du système et élargir son applicabilité dans le domaine de la santé.
+\end{comment}
+Dans le domaine de la pharmacologie et des soins de santé, les étiquettes médicales contiennent des informations essentielles telles que les numéros de lot, les dates de fabrication et de péremption, les instructions de dosage et les prix. Cependant, en raison de l’absence d’un format standardisé d’étiquette médicale approuvé par les autorités sanitaires algériennes, le développement de systèmes automatisés de reconnaissance d’étiquettes médicales demeure un défi majeur.
+
+Ce travail propose un système basé sur l’intelligence artificielle (IA) capable de reconnaître automatiquement et d’extraire le texte des étiquettes médicales. Pour répondre à ce problème, nous avons constitué un jeu de données dédié, composé de plus de 2 500 images d’étiquettes médicales annotées. Trois moteurs OCR différents ont été évalués sur ce jeu de données : Tesseract, EasyOCR et TrOCR. L’étude est enrichie par un affinement des modèles et une optimisation des hyperparamètres (HPO) afin d’améliorer leur performance dans un contexte spécifique au domaine.
+
+L’optimisation a été réalisée en appliquant deux méthodes : l’outil de configuration Optuna et les Algorithmes Génétiques (GA), dans le but d’améliorer les performances des moteurs OCR proposés.
+
+Les résultats obtenus montrent que les Algorithmes Génétiques surpassent systématiquement Optuna sur les trois modèles OCR testés.
+
+Ces résultats démontrent que TrOCR, combiné à une optimisation évolutive, constitue l’approche la plus efficace pour la reconnaissance automatique du texte sur les étiquettes médicales en Algérie.
+
+Ce projet présente une solution robuste pour l’extraction de texte à partir d’étiquettes médicales, ouvrant la voie à des systèmes intelligents capables d’assister la classification des médicaments et d’améliorer la gestion des données pharmaceutiques en Algérie.
+
+
+\vspace{1cm}
+
+
+%\noindent\rule[2pt]{\textwidth}{0.5pt}
+
+{\textbf{Mots clé :}}
+Intelligence Artificielle, Étiquettes médicales, Reconnaissance de texte, Détection, Segmentation, Classification, OCR, EasyOCR, TrOCR, Tesseract, Optimisation des hyperparamètres, Algorithmes génétiques, Optuna.
+%\noindent\rule[2pt]{\textwidth}{0.5pt}
+

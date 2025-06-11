@@ -1,0 +1,20 @@
+\chapter*{General Conclusion}
+
+In this study, we explored the problem of automatic text recognition on Algerian medical labels using advanced OCR technologies. Our goal consisted of developing a system capable of extracting and interpreting the content of these labels reliably and efficiently.% while also classifying the medication based on refundability status.
+
+The work began with the construction of a custom dataset consisting of over 2500 real-world images of medication labels, collected from local pharmacies in Khemis Melianan, Algeria. Each image was manually segmented and annotated to ensure accurate ground truth data, forming the basis for training and evaluation. 
+
+To investigate this problem, we proposed three different customized OCR models: Tesseract (based on LSTM), EasyOCR (based on CRAFT+CRNN), and TrOCR (based on Transformer architectures), adapted to the medical labels dataset. For each one of these models, we performed both standard evaluations using pretrained versions and domain-specific fine-tuning using our custom dataset. The fine-tuning process led to significant improvements in recognition accuracy across all models, confirming the value of domain adaptation in OCR tasks.
+
+To further enhance the performance of our proposed models, we applied another level of fine-tuning that relies on hyperparameter optimization techniques. Two approaches were applied: the first one using an automatic configurator \textsc{Optuna}, which uses Bayesian optimization, and the second one using Genetic Algorithms, which simulate evolutionary strategies. These methods enabled us to fine-tune key parameters (hyperparameters) of each model, such as: learning rate, batch size, and optimizer configuration, etc., thereby reducing the Character Error Rate (CER) and improving model performance.
+
+The results of our experimental evaluations demonstrated that the TrOCR model achieved the best overall performance on the medical labels dataset, with the lowest CER value after fine-tuning and optimization. EasyOCR also performed well, offering a good trade-off between accuracy and training time. While Tesseract was less accurate, it remained a viable option due to its simplicity, small model size, and rapid training process.
+
+Through this work, we have shown that with proper data preparation, fine-tuning, and hyperparameter optimization, even general-purpose OCR engines can be adapted effectively for specialized domains such as Algerian medical labels. The proposed approaches contribute to the development of reliable, AI-powered tools that can support medication management and digital healthcare infrastructure in regions where standardized medical label recognition is still lacking.
+
+\section*{Perspectives}
+
+This study opens several avenues for future work:
+First, the dataset can be expanded to include a wider variety of labels, including those with handwritten text, QR codes, or complex multilingual content. Second, integrating object detection models such as YOLO to automatically locate and extract label regions from full medicine box images could further automate the pipeline. Finally, deploying the system in a real-time mobile or desktop application could offer practical value to pharmacists, healthcare providers, and insurance systems seeking to validate and digitize medication information efficiently.
+
+The combination of OCR, fine-tuning, and intelligent optimization demonstrates strong potential for addressing real-world medical challenges through Artificial Intelligence.
